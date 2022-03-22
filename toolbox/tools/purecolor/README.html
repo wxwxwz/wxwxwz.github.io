@@ -1,0 +1,8 @@
+<h1 id="Purecolor"><a href="#Purecolor" class="headerlink" title="Purecolor"></a>Purecolor</h1><p>🎨 简单轻量的色板网站</p>
+<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><p><a href="https://tool.solstice23.top/color/">tool.solstice23.top/color</a></p>
+<h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><ol>
+<li>导入 <code>palettes.sql</code> 文件 </li>
+<li>在 <code>config.php</code> 中配置数据库参数</li>
+</ol>
+<h2 id="Nginx-伪静态"><a href="#Nginx-伪静态" class="headerlink" title="Nginx 伪静态"></a>Nginx 伪静态</h2><pre><code>rewrite /p/(.*?)/?$ /index.php?subdir&amp;id=$1;
+</code></pre>

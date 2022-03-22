@@ -1,0 +1,37 @@
+<h1 id="CSS-Beautify"><a href="#CSS-Beautify" class="headerlink" title="CSS Beautify"></a>CSS Beautify</h1><p>CSS Beautify is a JavaScript implementation of reindenter and reformatter for styles written in <a href="http://www.w3.org/Style/CSS/">CSS</a>.</p>
+<p>Given the following style:</p>
+<pre><code class="css">menu{color:red} navigation{background-color:#333}
+</code></pre>
+<p>CSS Beautify will produce:</p>
+<pre><code class="css">menu {
+    color: red
+}
+
+navigation {
+    background-color: #333
+}
+</code></pre>
+<p>Try it online at <a href="http://cssbeautify.com/">cssbeautify.com</a>. For the<br>command-line use, install Node.js <a href="https://npmjs.org/package/cssbeautify">cssbeautify</a> package.</p>
+<p>For more examples, see also its <a href="http://cssbeautify.com/test/">test suite</a>.</p>
+<h2 id="Using-cssbeautify-function"><a href="#Using-cssbeautify-function" class="headerlink" title="Using cssbeautify() function"></a>Using cssbeautify() function</h2><p>Since CSS Beautify is written in pure JavaScript, it can run anywhere that JavaScript can run.</p>
+<p>The API is very simple:</p>
+<pre><code class="javascript">var result = cssbeautify(style, options);
+</code></pre>
+<p><strong>options</strong> is an optional object to adjust the formatting. Known options so far are:</p>
+<ul>
+<li> <code>indent</code> is a string used for the indentation of the declaration (default is 4 spaces)</li>
+<li> <code>openbrace</code> defines the placement of open curly brace, either <em>end-of-line</em> (default) or <em>separate-line</em>.</li>
+<li> <code>autosemicolon</code> always inserts a semicolon after the last ruleset (default is <em>false</em>)</li>
+</ul>
+<p>Example call:</p>
+<pre><code class="javascript">var beautified = cssbeautify(&#39;menu{opacity:.7}&#39;, {
+    indent: &#39;  &#39;,
+    openbrace: &#39;separate-line&#39;,
+    autosemicolon: true
+});
+</code></pre>
+<h2 id="Contributing"><a href="#Contributing" class="headerlink" title="Contributing"></a>Contributing</h2><p>Contributions are welcomed! Please read the <a href="https://github.com/senchalabs/cssbeautify/blob/master/CONTRIBUTING.md">Contribution Guide</a> for more info.</p>
+<h2 id="License"><a href="#License" class="headerlink" title="License"></a>License</h2><p>Copyright (C) 2012 Sencha Inc.<br>Copyright (C) 2011 Sencha Inc.</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy<br>of this software and associated documentation files (the “Software”), to deal<br>in the Software without restriction, including without limitation the rights<br>to use, copy, modify, merge, publish, distribute, sublicense, and/or sell<br>copies of the Software, and to permit persons to whom the Software is<br>furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in<br>all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR<br>IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,<br>FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE<br>AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER<br>LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br>OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN<br>THE SOFTWARE.</p>

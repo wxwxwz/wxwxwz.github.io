@@ -1,0 +1,62 @@
+<p align="center">
+<img src="https://user-images.githubusercontent.com/2666735/30651452-58ae6c88-9deb-11e7-9e13-6beae3f6c54c.png" alt="Meting">
+</p>
+
+<h1 id="meting-api"><a href="#meting-api" class="headerlink" title="meting-api"></a>meting-api</h1><h2 id="Descriptions"><a href="#Descriptions" class="headerlink" title="Descriptions"></a>Descriptions</h2><ul>
+<li>这是基于 <a href="https://github.com/metowolf/Meting">Meting</a> 创建的 APlayer API</li>
+<li>灵感源于 <a href="https://api.fczbl.vip/163/">https://api.fczbl.vip/163/</a></li>
+</ul>
+<h2 id="Build-Setup"><a href="#Build-Setup" class="headerlink" title="Build Setup"></a>Build Setup</h2><pre><code class="bash"># 克隆仓库
+$ git clone https://github.com/injahow/meting-api.git
+
+$ cd meting-api
+
+# 安装依赖
+$ composer install
+
+# 或者使用中国镜像
+$ composer config -g repo.packagist composer https://packagist.phpcomposer.com
+
+$ composer install
+</code></pre>
+<p>或者下载打包文件<a href="https://github.com/injahow/meting-api/releases">https://github.com/injahow/meting-api/releases</a></p>
+<p>或者直接使用 Meting.php</p>
+<pre><code class="php">// include __DIR__ . &#39;/vendor/autoload.php&#39;;
+include __DIR__ . &#39;/src/Meting.php&#39;;
+</code></pre>
+<p>修改代码参数</p>
+<pre><code class="php">&lt;?php
+// 设置API路径（可默认）
+define(&#39;API_URI&#39;, api_uri());
+// 设置中文歌词
+define(&#39;TLYRIC&#39;, true);
+// 设置歌单文件缓存及时间
+define(&#39;CACHE&#39;, false);
+define(&#39;CACHE_TIME&#39;, 86400);
+// 设置短期缓存-需要安装apcu
+define(&#39;APCU_CACHE&#39;, false);
+// 设置AUTH密钥-更改&#39;meting-secret&#39;
+define(&#39;AUTH&#39;, false);
+define(&#39;AUTH_SECRET&#39;, &#39;meting-secret&#39;);
+
+......
+</code></pre>
+<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><p>API-Demo:</p>
+<ul>
+<li><a href="https://api.injahow.cn/meting/?type=url&id=416892104">https://api.injahow.cn/meting/?type=url&amp;id=416892104</a></li>
+<li><a href="https://api.injahow.cn/meting/?type=single&id=591321">https://api.injahow.cn/meting/?type=single&amp;id=591321</a></li>
+<li><a href="https://api.injahow.cn/meting/?type=playlist&id=2619366284">https://api.injahow.cn/meting/?type=playlist&amp;id=2619366284</a></li>
+</ul>
+<p>APlayer-Demo:</p>
+<ul>
+<li><a href="https://injahow.github.io/meting-api/">https://injahow.github.io/meting-api/</a></li>
+<li><a href="https://injahow.github.io/meting-api/?id=2904749230">https://injahow.github.io/meting-api/?id=2904749230</a></li>
+</ul>
+<h2 id="Thanks"><a href="#Thanks" class="headerlink" title="Thanks"></a>Thanks</h2><ul>
+<li><a href="https://github.com/MoePlayer/APlayer">APlayer</a></li>
+<li><a href="https://github.com/metowolf/Meting">Meting</a></li>
+<li><a href="https://github.com/metowolf/MetingJS">MetingJS</a></li>
+</ul>
+<h2 id="Requirement"><a href="#Requirement" class="headerlink" title="Requirement"></a>Requirement</h2><p>PHP 5.4+ and BCMath, Curl, OpenSSL extension installed.</p>
+<h2 id="License"><a href="#License" class="headerlink" title="License"></a>License</h2><p><a href="https://github.com/injahow/meting-api/blob/master/LICENSE">MIT</a> license.</p>
+<p>Copyright (c) 2019 injahow</p>

@@ -1,0 +1,95 @@
+*{
+    padding: 0;
+    margin: 0;
+    
+}
+::-webkit-scrollbar {/*整个滚动条*/
+  width: 6px;
+  height: 6px;
+  background-color: #00000000;
+  border-radius: 25px;
+}
+::-webkit-scrollbar-track { /*滚动条轨道*/
+  border-radius:10px;
+}
+::-webkit-scrollbar-thumb { /*滚动滑块*/
+  background-color: #9E9E9E;
+  border-radius: 25px;
+}
+html {
+    width: 100%;
+	height: 100%;
+	display: -webkit-flex; /* Safari */
+  display: flex;
+  display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	vertical-align:middle;
+}
+body {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: local;
+	background-size: cover;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+}
+
+
+.fsvg {
+		border-radius: 5px;
+		overflow: hidden;
+		height: 100%;
+		width: 100%;
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: -1
+}
+
+.frosted-panel {
+	
+	position: relative;
+	border-radius: 1px;
+	overflow: hidden;
+	visibility: hidden;
+	
+	-webkit-box-flex: 0;
+		-ms-flex: 0 0 auto;
+			flex: 0 0 auto;
+}
+
+.content {
+	z-index: 4200;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+/* EVERYTHING BELOW THIS POINT IS FOR DEMO PURPOSES ONLY */
+
+.flex-container {
+	width: 100%;
+	height: 100%;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: top;
+	    -ms-flex-align: top;
+	        align-items: top;
+	-webkit-box-pack: top;
+	    -ms-flex-pack: top;
+	        justify-content: center;
+}
+

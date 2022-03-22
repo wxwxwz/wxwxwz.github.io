@@ -1,0 +1,66 @@
+<title>Please wait...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<body  onLoad="location.href = url;" style='overflow:hidden;overflow-y:hidden'>
+    
+<script language="JavaScript">
+    function getQueryString(name) {
+           var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+           var r = window.location.search.substr(1).match(reg);
+           if(r != null) {
+                 return decodeURIComponent(r[2]);
+           }
+           return '';
+      }
+    var url = getQueryString("url");
+</script>
+
+<div style="text-align:center;clear:both">
+<link rel="stylesheet" href="css/loadanim.css" media="screen" type="text/css" />
+</div>
+  <div class="container">
+  <div class="gearbox">
+  <div class="overlay"></div>
+    <div class="gear one">
+      <div class="gear-inner">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
+    <div class="gear two">
+      <div class="gear-inner">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
+    <div class="gear three">
+      <div class="gear-inner">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
+    <div class="gear four large">
+      <div class="gear-inner">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
+  </div>
+  <h1>正在努力打开页面</h1>
+</div>
+<script>
+<!--
+if (document.layers)
+document.write('<Layer src="' + url + ' " VISIBILITY="hide"> </Layer>');
+else if (document.all || document.getElementById)
+document.write('<iframe src="' + url + '" style="visibility: hidden;"></iframe>');
+else location.href = url;
+//-->
+</script>
+</div>

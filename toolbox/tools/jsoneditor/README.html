@@ -1,0 +1,117 @@
+<h1 id="Frosted-Panel-nbsp"><a href="#Frosted-Panel-nbsp" class="headerlink" title="Frosted Panel &nbsp; "></a>Frosted Panel &nbsp; <a href="https://twitter.com/intent/tweet?text=Frosted%20Glass/Panel%20Effect,%20Cross%20Browser,%20(Vainlla%20JS%20&%20CSS)&url=https://github.com/cryptodescriptor/frosted-panel&hashtags=css,javascript,design,frostedglass,frostedpanel,effect"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social" alt="Tweet"></a></h1><p>Frosted Panel is a cross-browser compatible library written in pure Javascript to achieve a responsive “Frosted Glass” effect.</p>
+<img src="img/screen.jpg" width="100%">
+
+<p>If you are trying to get the same effect <a href="https://webdesign.tutsplus.com/tutorials/how-to-create-a-frosted-glass-effect-in-css--cms-32535">documented here</a>, but need it to work on as many browsers as possible, even if they do not support <code>filter: blur()</code>, then Frosted Panel is the library for you.</p>
+<p>Check out the <a href="https://cryptodescriptor.github.io/frosted-panel">live demo</a> so you can see a demonstration of what it looks like. Try re-sizing the browser to see the panels responsiveness.</p>
+<p>Browsers tested thus far:</p>
+<ul>
+<li>Chrome</li>
+<li>Firefox</li>
+<li>Firefox Focus</li>
+<li>Edge</li>
+<li>Internet Explorer</li>
+<li>Safari</li>
+<li>Opera</li>
+</ul>
+<p>Although only a few browsers are listed above, it should work on the majority of them. The goal of this library is to be as compatible with as many browsers as possible.</p>
+<h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><p>To get started, you will need to fork this repository or <a href="https://github.com/cryptodescriptor/frosted-panel/archive/master.zip">download as zip</a>.</p>
+<h2 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h2><p>Firstly, you will need to select the background-image you want to use. Frosted Panel now scales the image using <code>background-size: cover</code> as of BETA_v1.1, therefore the image size is no longer as relevant, we just recommend sizing to be at least <code>1920x1080</code> for optimal quality. You may wish to go even larger if you want it to look crisp on 4k monitors, but it will scale nonetheless.</p>
+<p>Now that you know what image you will be using, you must specify the path inside <code>app.html</code> on the attribute <code>xlink:href</code> of the <code>image</code> element. Please also change the <code>width</code> and <code>height</code> attributes to match the dimensions of your image. If you are using an image of <code>2880x1620</code> pixels, the <code>width</code> should have a value of <code>2880</code> and the <code>height</code> should have a value of <code>1620</code>.</p>
+<pre><code>&lt;image xlink:href=&quot;./img/bg.jpg&quot; x=&quot;0&quot; y=&quot;0&quot; width=&quot;2880&quot; height=&quot;1620&quot; /&gt;
+</code></pre>
+<h2 id="Attributes"><a href="#Attributes" class="headerlink" title="Attributes"></a>Attributes</h2><p>Now you have your background-image all set up, you need to configure the panel size, its margins, and optionally add some breakpoints to allow you to change the sizing on different viewports.</p>
+<p>For simplicity, Frosted Panel is configured using html attributes only.</p>
+<h2 id="Width-amp-Height"><a href="#Width-amp-Height" class="headerlink" title="Width &amp; Height"></a>Width &amp; Height</h2><p>To set the <code>width</code> and <code>height</code> of the panel, you need to set the <code>panel-dimensions</code> attribute on the div with the class <code>frosted-panel</code>.</p>
+<pre><code>&lt;div class=&quot;frosted-panel&quot; panel-dimensions=&quot;width height&quot;&gt;
+</code></pre>
+<p>The <code>width</code> is the first value, and the <code>height</code> is the second value, <strong>the two values should be delimited by a single space</strong>.</p>
+<p>Values can be one of three types: <code>px</code>, <code>%</code>, <code>auto</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>px</td>
+<td>Fixed size in pixels</td>
+</tr>
+<tr>
+<td>%</td>
+<td>Percentage of viewport width or height</td>
+</tr>
+<tr>
+<td>auto</td>
+<td>Auto width or height based on content size</td>
+</tr>
+</tbody></table>
+<h2 id="Content-amp-Content-Margin"><a href="#Content-amp-Content-Margin" class="headerlink" title="Content &amp; Content Margin"></a>Content &amp; Content Margin</h2><p>All the content that you wish to be inside the panel, must be nested within the <code>content</code> div. If you want to control the margin around the content (the space between the content and the edge of the panel), then you must do so by setting <code>content-margin</code> attribute on the div, with a pixel value. If this attribute is missing or empty, then the margin will default to 0.</p>
+<pre><code>&lt;div class=&quot;content&quot; content-margin=&quot;5px&quot;&gt;
+</code></pre>
+<h2 id="Appending-Content"><a href="#Appending-Content" class="headerlink" title="Appending Content"></a>Appending Content</h2><p><strong>As of BETA_v2.1 this should no longer be necessary!</strong></p>
+<p>If you plan to append content to the panel programmatically, after you do so, you will need to call:</p>
+<pre><code>frostedPanel.pan_and_zoom()
+</code></pre>
+<p>To re-calculate the <code>width</code> and <code>height</code> if they are set to <code>auto</code>.</p>
+<h2 id="Panel-Margin"><a href="#Panel-Margin" class="headerlink" title="Panel Margin"></a>Panel Margin</h2><p>On the <code>body</code> tag, you can add an optional attribute <code>space-top-bot</code>, which works by setting <code>min-height</code> of the page to a value of <code>panel_height + (space-top-bot*2)</code>, every time the screen is resized. This allows us to emulate a top and bottom <code>margin</code> for our panel. Currently there is no way to set a left and right margin, I didn’t add this feature because generally you will be using percentage width’s for your panel anyway.</p>
+<p>If you do use fixed width’s, make sure the panel <code>width</code> is small enough to fit on the viewport’s of your website visitors, otherwise the panel will overflow the body.</p>
+<pre><code>&lt;body space-top-bot=&quot;50px&quot;&gt;
+</code></pre>
+<p>The above code will add 50px top margin and 50px bottom margin.</p>
+<h2 id="Blur-Amount-stdDeviation"><a href="#Blur-Amount-stdDeviation" class="headerlink" title="Blur Amount (stdDeviation)"></a>Blur Amount (stdDeviation)</h2><p>To adjust the “blurryness” of the panel, you will need to change the value of  <code>stdDeviation</code> attribute (nested inside the <code>filter</code> element of the <code>svg</code>). The higher the number, the more blurry your panel will be.</p>
+<pre><code>&lt;feGaussianBlur in=&quot;SourceGraphic&quot; stdDeviation=&quot;7&quot; /&gt;
+</code></pre>
+<h2 id="Breakpoints"><a href="#Breakpoints" class="headerlink" title="Breakpoints"></a>Breakpoints</h2><p>You can configure the panel to be different sizes at different viewport width’s using the <code>breakpoints</code> attribute in conjunction with <code>breakpoint-type</code> attribute.</p>
+<p>You should be familiar with CSS media queries that make use of <code>min-width</code> and <code>max-width</code> conditions to apply a set of styles at certain viewport width’s (breakpoints).</p>
+<p>Frosted Panel gives you freedom of choice by allowing you to provide <code>breakpoint-type</code> attribute, with a value of either <code>min-width</code> (mobile first), or <code>max-width</code>. The performance impact will be exactly the same for both, just use the one you feel the most comfortable with.</p>
+<p>Example:</p>
+<pre><code>&lt;div class=&quot;frosted-panel&quot; panel-dimensions=&quot;auto auto&quot; breakpoint-type=&quot;min-width&quot; breakpoints=&quot;&quot;&gt;
+</code></pre>
+<p>Great! Now you have selected which media query type you will be using, you can start to tell Frosted Panel how big you want it to be at different viewport width’s.</p>
+<p>You do this by passing a list of breakpoints to the <code>breakpoints</code> attribute, each delimited by a single comma <code>,</code>.</p>
+<p>Each breakpoint must follow a specific format. The first value is the <code>width</code> in pixels that you want the breakpoint to occur at (must end with “<code>px</code>“), the second and third values are <code>width</code> and <code>height</code> values which determine the size of the panel when the breakpoint is triggered. The <code>width</code> and <code>height</code> value’s each can be one of three format’s described in the “Width &amp; Height” section.</p>
+<p>Examples:</p>
+<pre><code>&lt;div class=&quot;frosted-panel&quot; panel-dimensions=&quot;auto auto&quot; breakpoint-type=&quot;min-width&quot; breakpoints=&quot;600px 70% 300px, 1200px 60% 500px&quot;&gt;
+</code></pre>
+<p>The CSS equivalent of the above would be:</p>
+<pre><code>.frosted-panel {
+  width: auto;
+  height: auto;
+}
+
+@media only screen and (min-width: 600px) {
+  .frosted-panel {
+    width: 70%;
+    height: 300px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .frosted-panel {
+    width: 60%;
+    height: 500px;
+  }
+}
+</code></pre>
+<p>When <code>breakpoint-type</code> is changed from <code>min-width</code> to <code>max-width</code>, the CSS equivalent would now be this:</p>
+<pre><code>.frosted-panel {
+  width: auto;
+  height: auto;
+}
+
+@media only screen and (max-width: 1200px) {
+  .frosted-panel {
+    width: 60%;
+    height: 500px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .frosted-panel {
+    width: 70%;
+    height: 300px;
+  }
+}
+</code></pre>
+<p>As you can see, the breakpoint attributes emulate standard CSS media queries. And are mandatory if you wish to use media queries to control the size of Frosted Panel.</p>

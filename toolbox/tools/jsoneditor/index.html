@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JSON在线编辑</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/main.css">
+	<link href="css/jsoneditor.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="css/notiflix-3.2.2.min.css">
+	<link href="css/btnstyle.css" rel="stylesheet" type="text/css">
+    <script src="js/jsoneditor.min.js"></script>
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.format.js"></script>
+    <!-- xml相关 -->
+    <script type="text/javascript" src="js/ObjTree.min.js"></script>
+    <script>
+        function jump(){
+         window.location.href="https://tool.wxwz.xyz";
+        }
+    </script>
+    <style>
+        .jsoneditor-poweredBy {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body >
+    
+	<script src="js/notiflix-report-aio-3.2.2.min.js"></script>
+	<script src="js/notiflix-notify-aio-3.2.2.min.js"></script>
+	<script src="js/notiflix-aio-3.2.2.min.js"></script>
+	<script src="js/notiflix-loading-aio-3.2.2.min.js"></script>
+	<script src="js/notiflix-confirm-aio-3.2.2.min.js"></script>
+	<script src="js/notiflix-block-aio-3.2.2.min.js"></script>
+	<script src="js/notiflix-3.2.2.min.js"></script>
+	<div class="frosted-panel"  panel-dimensions="98% 97%" >
+		<svg class = "fsvg">
+			<filter id="blurMe" filterRes="1200" color-interpolation-filters="sRGB">
+				<feGaussianBlur in="SourceGraphic" stdDeviation="17" />
+			</filter>
+
+			<image xlink:href="https://tool.wxwz.xyz/tools/rdwallpaper/bing.php" x="0" y="0" width="1920" height="1080" filter="url(#blurMe)" />
+		</svg>
+
+		<div class="content" content-margin="5px" >
+			<!-- ALL PANEL CONTENT GOES HERE -->
+			<!-- .flex-container is for demo purposes only -->
+			
+			
+				<div  align="center">
+					<h1><font color="#FFFFFF">JSON在线编辑</font></h1>
+					<div class="frame">
+		        	<button type="button" class="custom-btn btn-6" id="submitBTN" onclick="beautify();"><span>格式化</span></button>
+		        	<button type="button" class="custom-btn btn-6" id="submitBTN2" onclick="minify();"> <span>压缩</span></button>
+		        	<button type="button" class="custom-btn btn-6" id="submitBTN3"><span>验证</span></button>
+		        	<button type="button" class="custom-btn btn-6" onclick ="jsonToxml();"><span>JSON 转 XML</span></button>
+		        	<button type="button" class="custom-btn btn-6" onclick ="jsonTocsv();"><span>JSON 转 CSV</span></button>
+		        	<button type="button" class="custom-btn btn-6" onclick ="jsonToyaml();"><span>JSON 转 YAML</span></button>
+		       		<input type="button" style="display:none" class="custom-btn btn-6" value="返回工具箱" onclick=javascrtpt:jump()>
+		        	<div class="col-md-12" id="warning" style="display: none;">
+		                <div class="alert alert-warning">
+		                   	<a href="#" class="close" data-dismiss="alert">
+		                      &times;
+		                   	</a>
+		                   	<p><strong>警告！</strong>JSON 格式错误。</p>
+		                   	<p id="warning-info"></p>
+		                </div>
+		            </div>
+		            </div>
+    			</div>
+     
+    			
+	        		<div id="jsoneditor1" style="width:45%;float:left;height: 500px;margin-left: 5%;"></div>
+	        		<div id="jsoneditor2" style="width:45%;float:left;height: 500px;margin-right: 5%;"></div>
+    			
+
+    			<div align="center" >
+         			
+            		<button id="toCode" class="custom-btn btn-6" type="button"><span>ToCode</span></button>
+                    <button id="toTree" class="custom-btn btn-6" type="button"><span>ToTree</span></button>
+                    
+    			</div>
+		</div>
+		
+	</div>
+	
+	<script>
+    // set json
+    const initialJson = {
+        "Array": [1, 2, 3],
+        "Boolean": true,
+        "Null": null,
+        "Number": 123,
+        "Object": {"a": "b", "c": "d"},
+        "String": "Hello World"
+    }
+    // create the editor
+    const container1 = document.getElementById("jsoneditor1")
+    const container2 = document.getElementById("jsoneditor2")
+    var optionsOutput1 = {
+        mode : 'code',
+        error : function(err) {
+            alert('EF1 ->' + err.toString());
+        }
+    };
+    var optionsOutput2 = {
+        mode : 'tree',
+        modes : [ 'view', 'form', 'text','code', 'tree'], // allowed modes
+        error : function(err) {
+            alert('EF1 ->' + err.toString());
+        }
+    };
+    
+    const editor1 = new JSONEditor(container1, optionsOutput1,initialJson)
+    const editor2 = new JSONEditor(container2, optionsOutput2,initialJson)
+    editor2.expandAll();
+    
+    $("#toTree").click(function() {
+    var jsonStr = editor1.getText();
+    editor2.setText(jsonStr);
+    editor2.setMode("tree");
+    editor2.expandAll();
+    });
+    $("#toCode").click(function() {
+        var jsonStr = editor2.getText();
+        var jsonObject = JSON.parse(jsonStr);
+        editor1.setText(JSON.stringify(jsonObject, null, 2));
+        editor1.setMode("code");
+    })
+
+    
+    function beautify() {
+        var content = editor1.getText();
+
+        if (content.trim().length == 0) {
+            return false;
+        }
+        try {
+
+            var jsonStr = editor1.getText();
+
+            var jsonObject = JSON.parse(jsonStr);
+            editor1.setMode("code");
+            editor1.setText(JSON.stringify(jsonObject, null, 2));
+            
+            editor2.setText(JSON.stringify(jsonObject, null, 0));
+            editor2.setMode("tree");
+            editor2.expandAll()
+
+            
+        } catch (e) {
+            Notiflix.Report.failure(
+						'JSON 数据错误',
+						'错误代码: <br/><br/>' + e,
+						'确定',
+						);
+        }
+    }
+    
+    function minify() {
+
+        var content = editor1.getText();
+
+        if (content.trim().length == 0) {
+            return false;
+        }
+
+
+        try {
+            var jsonStr = editor1.getText();
+
+            var jsonObject = JSON.parse(jsonStr);
+            
+            editor1.setMode("code");
+            editor1.setText(JSON.stringify(jsonObject, null, 0));
+            editor2.setText(JSON.stringify(jsonObject, null, 0));
+            editor2.setMode("tree");
+            
+            editor2.expandAll()
+        } catch (e) {
+            Notiflix.Report.failure(
+						'JSON 数据错误',
+						'错误代码: <br/><br/>' + e,
+						'确定',
+						);
+        }
+    }
+    $("#submitBTN3").click(function() {
+        var content = editor1.getText();
+
+        if (content.trim().length == 0) {
+            return false;
+        }
+        
+        try {
+            var jsonStr = editor1.getText();
+            var json = JSON.parse(jsonStr);
+            Notiflix.Notify.success('JSON数据合法！');
+            
+        } catch (e) {
+            Notiflix.Report.failure(
+						'JSON 数据错误',
+						'错误代码: <br/><br/>' + e,
+						'确定',
+						);
+        }
+
+    });
+    function jsonToxml() {
+
+        var content = editor1.getText();
+
+        if (content.trim().length == 0) {
+            return false;
+        }
+
+
+        try {
+            var jsonStr = editor1.getText();
+            var json = JSON.parse(jsonStr);
+            var xotree = new XML.ObjTree();
+            var xml = xotree.writeXML(json);
+            xml = decodeSpecialCharacter(xml);
+            editor2.setMode("text");        
+            formatXML =  $.format(xml, {method: 'xml'});
+            editor2.setText(formatXML);
+        } catch (e) {
+            Notiflix.Report.failure(
+						'JSON 数据错误',
+						'错误代码: <br/><br/>' + e,
+						'确定',
+						);
+        }
+    }
+    function decodeSpecialCharacter(str) {
+        return str.replace(/\&amp;/g, '&').replace(/\&gt;/g, '>').replace(/\&lt;/g,
+                '<').replace(/\&quot;/g, '"');
+    }
+
+    function jsonTocsv() {
+
+        var content = editor1.getText();
+
+        if (content.trim().length == 0) {
+            return false;
+        }
+
+        try {
+            var jsonStr = editor1.getText();
+            var json = JSON.parse(jsonStr);
+            var csv = jsonTocsvbyjson(json);
+            editor2.setMode("text");    
+            editor2.setText(csv);
+
+            
+        } catch (e) {
+            Notiflix.Report.failure(
+						'JSON 数据错误',
+						'错误代码: <br/><br/>' + e,
+						'确定',
+						);
+        }
+    }
+    function jsonTocsvbyjson(data) {
+
+        arr = [];
+        flag = true;
+
+        var header = "";
+        var content = "";
+        var headFlag = true;
+
+        try {
+
+            var type1 = typeof data;
+
+            if (type1 != "object") {
+                data = processJSON($.parseJSON(data));
+            } else {
+                data = processJSON(data);
+            }
+
+        } catch (e) {
+            setMessage("error", "Error in Convert : add proper input format");
+            return false;
+        }
+
+        $.each(data, function(k, value) {
+            if (k % 2 == 0) {
+                if (headFlag) {
+                    if (value != "end") {
+                        header += value + ",";
+                    } else {
+                        // remove last colon from string
+                        header = header.substring(0, header.length - 1);
+                        headFlag = false;
+                    }
+                }
+            } else {
+                if (value != "end") {
+                    var temp = data[k - 1];
+                    if (header.search(temp) != -1) {
+                        content += value + ",";
+                    }
+                } else {
+                    // remove last colon from string
+                    content = content.substring(0, content.length - 1);
+                    content += "\n";
+                }
+            }
+
+        });
+
+        return (header + "\n" + content);
+    }
+    function processJSON(data) {
+
+        $.each(data, function(k, data1) {
+
+            var type1 = typeof data1;
+
+            if (type1 == "object") {
+
+                flag = false;
+                processJSON(data1);
+                arr.push("end");
+                arr.push("end");
+
+            } else {
+                arr.push(k, data1);
+            }
+
+        });
+
+        return arr;
+    }
+
+    function jsonToyaml() {
+
+        var content = editor1.getText();
+
+        if (content.trim().length == 0) {
+            return false;
+        }
+
+        try {
+            var jsonStr = editor1.getText();
+            var yaml = json2yaml(jsonStr);
+            editor2.setMode("text");
+            editor2.setText(yaml);
+        } catch (e) {
+            Notiflix.Report.failure(
+						'JSON 数据错误',
+						'错误代码: <br/><br/>' + e,
+						'确定',
+						);
+        }
+        last_action = "jsonToyaml";
+    }
+
+    var spacing = " ";
+    function json2yaml(obj) {
+
+      if (typeof obj == 'string') {
+        obj = JSON.parse(obj);
+      }
+
+     
+      var ret = [];
+      console.log(typeof obj);
+      convert(obj, ret);
+      return ret.join("\n");
+    };
+
+
+    function getType(obj) {
+      var type = typeof obj;
+      
+      if (obj instanceof Array) {
+        return 'array';
+      } else if (type == 'string') {
+        return 'string';
+      } else if (type == 'boolean') {
+        return 'boolean';
+      } else if (type == 'number') {
+        return 'number';
+      } else if (type == 'undefined' || obj === null) {
+        return 'null';
+      } else {
+        return 'hash';
+      }
+    }
+
+    function convert(obj, ret) {
+      var type = getType(obj);
+
+      switch(type) {
+        case 'array':
+          convertArray(obj, ret);
+          break;
+        case 'hash':
+          convertHash(obj, ret);
+          break;
+        case 'string':
+          convertString(obj, ret);
+          break;
+        case 'null':
+          ret.push('null');
+          break;
+        case 'number':
+          ret.push(obj.toString());
+          break;
+        case 'boolean':
+          ret.push(obj ? 'true' : 'false');
+          break;
+      }
+    }
+    function convertArray(obj, ret) {
+      for (var i=0; i<obj.length; i++) {
+        var ele = obj[i];
+        var recurse = [];
+        convert(ele, recurse);
+
+        for (var j=0; j<recurse.length; j++) {
+          ret.push((j == 0 ? "- \n   " : spacing) + recurse[j]);
+        }
+      }
+    }
+
+    function convertHash(obj, ret) {
+      for (var k in obj) {
+        var recurse = [];
+        if (obj.hasOwnProperty(k)) {
+          var ele = obj[k];
+          convert(ele, recurse);
+          var type = getType(ele);
+          if (type == 'string' || type == 'null' || type == 'number' || type == 'boolean') {
+            ret.push(normalizeString(k) + ': ' + recurse[0]);
+          } else {
+            ret.push(normalizeString(k) + ': ');
+            for (var i=0; i<recurse.length; i++) {
+              ret.push(spacing + recurse[i]);
+            }
+          }
+        }
+      }
+    }
+
+    function normalizeString(str) {
+      if (str.match(/^[\w]+$/)) {
+        return str;
+      } else {
+        return JSON.stringify(str);
+      }
+    }
+
+    function convertString(obj, ret) {
+      ret.push(normalizeString(obj));
+    }
+</script>
+
+<script src="./js/glass.js"></script>
+
+
+</body>
+
+
+
+</html>
